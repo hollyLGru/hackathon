@@ -2,6 +2,7 @@
 import './App.css';
 import React, { Component } from 'react';
 // import listArticlesCard from './listArticlesCard.js'
+import axios from 'axios';
 
 class App extends Component{
 
@@ -12,7 +13,7 @@ class App extends Component{
 
     this.state = {
       arrayOfArticles: [],
-      isClicked : true
+      // isClicked : true
 
     }
   };
@@ -30,10 +31,10 @@ class App extends Component{
   return (
     <div className="App">
       <header className="App-header">
+      <p>Hey Test!</p>
       <ol>{this.state.arrayOfArticles.map((articles, index) => {
         return (
-          <p>Hey Test!</p>,
-          console.log(arrayOfArticles)
+          <listArticlesCard key={index} posts={articles.hits} />
         )
       })}</ol>
       </header>
