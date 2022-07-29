@@ -1,40 +1,45 @@
 
 import './App.css';
-import React, {useState} from 'react'
+import React, { Component } from 'react';
 // import listArticlesCard from './listArticlesCard.js'
 
+class App extends Component{
 
 
-function App() {
-  const [listArticles, searchForm] = useState([])
+  constructor(){
+    super()
+    // this method SUPERCEDES the parent element
+
+    this.state = {
+      arrayOfArticles: [],
+      isClicked : true
+
+    }
+  };
+
+  componentDidMount(){
+  axios.get('https://hn.algolia.com/api/v1/search?query=react')
+  .then (res => {
+    const arrayOfArticles = res.data;
+    this.setState({ arrayOfArticles })
+  })
+  }
 
 
-    fetch('https://hn.algolia.com/api/v1/search?query=react')
-    .then((response) => response.json())
-      .then((data) => {
-        if (!listArticles.length){
-              searchForm(data.results)
-        }
-      });
-      if (listArticles.length){
-      }
- 
+  render() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Hey</p>
-      <ol> {listArticles.map((listArticles, index) => {
+      <ol>{this.state.arrayOfArticles.map((articles, index) => {
         return (
-          <li>
-            {listArticles.hits.title}
-        </li>
+          <p>Hey Test!</p>,
+          console.log(arrayOfArticles)
         )
-      })}
-      </ol>
-
+      })}</ol>
       </header>
     </div>
   );
+  }
 }
 
 export default App;
