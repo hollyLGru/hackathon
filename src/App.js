@@ -22,7 +22,6 @@ handleChange = (e) => {
 
 handleSubmit = (e) => {
   e.preventDefault()
-
 axios.get('http://hn.algolia.com/api/v1/search?query=react', {
   searchForm: this.state.searchForm,
 
@@ -47,7 +46,7 @@ axios.get('http://hn.algolia.com/api/v1/search?query=react', {
         <p>Form practice React App</p>
         <form onSubmit={(e) => {this.handleSubmit(e)}}>
           <br></br>
-          <label>Email: 
+          <label>Search for Article: 
             <input name="searchForm" type="text" value={this.state.email} onChange={(e) => {this.handleChange(e)}}></input>
           </label>
           <br></br>
