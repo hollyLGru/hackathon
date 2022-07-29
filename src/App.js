@@ -9,11 +9,15 @@ function App() {
   const [listArticles, searchForm] = useState([])
 
 
- fetch('http://hn.algolia.com/api/v1/search?query=react')
-    .then(response => response.json())
-    .then(data => {searchForm(data.results)})
-    // console.log(listArticles)
-
+    fetch('https://hn.algolia.com/api/v1/search?query=react')
+    .then((response) => response.json())
+      .then((data) => {
+        if (!listArticles.length){
+              searchForm(data.results)
+        }
+      });
+      if (listArticles.length){
+      }
  
   return (
     <div className="App">
@@ -22,8 +26,7 @@ function App() {
       <ol> {listArticles.map((listArticles, index) => {
         return (
           <li>
-          <listArticlesCard key={index} tag={listArticles.tag} date={listArticles.created_at} author={listArticles.author} title={listArticles.title}  />,
-           <articleCard key={index} tag={listArticles.tag} date={listArticles.date} author={listArticles.author} title={listArticles.title} />
+            {listArticles.hits.title}
         </li>
         )
       })}
