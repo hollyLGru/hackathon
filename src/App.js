@@ -1,22 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import React, {useState} from 'react'
+
 
 function App() {
+  const [listArticles, searchForm] = useState([])
+
+  fetchData(){
+     fetch('http://hn.algolia.com/api/v1/items/%27')
+    .then(response => response.json())
+    .then(data => {searchForm(data.results)})
+    console.log(listArticles)
+  
+  }
+ 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
