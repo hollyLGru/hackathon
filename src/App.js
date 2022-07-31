@@ -21,21 +21,41 @@ handleChange = (e) => {
   })
 }
 
-filterSearch(term) {
-  return(item) => {
-    return (
-      item.name.toLowerCase().includes(term.toLowerCase())
-    )
-  }
-}
 
-componentDidMount() {
-  axios.get('http://hn.algolia.com/api/v1/search?query=react') 
-    .then(res => {
-      const arrayOfArticles = res.data;
-      this.setState({arrayOfArticles : res.data.hits})
-      console.log(arrayOfArticles.hits)
+// componentDidMount() {
+//   axios.get('http://hn.algolia.com/api/v1/search?query=react') 
+//     .then(res => {
+//       const arrayOfArticles = res.data;
+//       this.setState({arrayOfArticles : res.data.hits})
+//       console.log(arrayOfArticles.hits)
+//     })
+//   }
+
+handleSubmit = (e) => {
+   e.preventDefault()
+ axios.get('http://hn.algolia.com/api/v1/search?query=react', {
+     searchForm: this.state.searchForm,
+   })
+   .then(function(response){
+     console.log(response.data.hits)
+     this.setState({arrayOfArticles : response.data.hits})
+   })
+   .catch(function (error) {
+     console.log(error)
+   })
+  
+     this.setState({
+      arrayOfArticles: [],
+      searchForm: ""
     })
+   }
+
+  filterSearch(term) {
+    return(item) => {
+      return (
+        item.name.includes(term)
+      )
+    }
   }
 
   render() {
