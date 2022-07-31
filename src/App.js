@@ -33,7 +33,8 @@ componentDidMount() {
   axios.get('http://hn.algolia.com/api/v1/search?query=react') 
     .then(res => {
       const arrayOfArticles = res.data;
-      this.setState({arrayOfArticles})
+      this.setState({arrayOfArticles : res.data.hits})
+      console.log(arrayOfArticles.hits)
     })
   }
 
@@ -49,9 +50,7 @@ componentDidMount() {
             name="searchForm" 
             type="text" 
             value={this.state.searchForm} 
-            onChange={(e) => {this.handleChange(e)}}>
-
-            </input>
+            onChange={(e) => {this.handleChange(e)}}></input>
           </label>
           <br></br>
           <input type="submit" value="Submit" />
