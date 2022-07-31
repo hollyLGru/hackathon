@@ -1,21 +1,20 @@
 import React from 'react';
+import ArticleCard from './ArticleCard'
 
-function listArticlesCard(props){
-
-
-return (
-
-        <li>
-            <h3>{props.tag}</h3>
-            <span>{props.date}</span>
-            <h2>{props.author}</h2>
-            <h1>{props.title}</h1>
-        </li>
-
-
-)
-
+function ListArticlesCard(props){
+    return (
+        <ul>
+            {props.articles.map((articles, index) =>{
+                return (
+                    <ArticleCard
+                    key={index}
+                    name = {articles.name}
+                    />
+                )
+            })}
+        </ul>
+    )
 }
 
 
-export default listArticlesCard;
+export default ListArticlesCard;
