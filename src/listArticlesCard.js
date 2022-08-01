@@ -3,7 +3,7 @@ import ArticleCard from './ArticleCard'
 
 function ListArticlesCard(props){
     return (
-        <ol>
+        <ol style={{listStyle: "none"}}>
             {props.articles.map((articles, index) =>{
                 return (
                     <ArticleCard
