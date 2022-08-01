@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
-import ListArticlesCard from './ListArticlesCard';
+import axios from 'axios'
+import ListArticles from './ListArticlesCard';
 
 
 class App extends Component {
@@ -10,75 +9,55 @@ constructor(props){
     super(props)
 
     this.state={
-      arrayOfArticles: [],
-      searchForm: "",
-      author: '',
+      articleArray: [],
+      searchTerm: ""
     }
   }
 
 
 componentDidMount() {
-  axios.get('http://hn.algolia.com/api/v1/search?query=react') 
-    .then(res => {
-      const arrayOfArticles = res.data.hits;
-      this.setState({arrayOfArticles})
+  axios.get('http://hn.algolia.com/api/v1/search?tags=front_page')
+    .then( res => {
+      const articleArray = res.data.hits;
+      this.setState({articleArray})
+      console.log(articleArray)
     })
-  }
-
-  handleSubmit = (e) => {
-  e.preventDefault()
-  axios.get(`http://hn.algolia.com/api/v1/search?tags=story,author_${this.state.author}`)
-.then(function(response){
-  const articles = response.data.hits;
-  console.log(response.data.hits)
-})
-.catch(function (error) {
-  console.log(error)
-})
-
-  this.setState({
-    author: ''
-  })
 }
+
+filterSearch = (term) => {
+  return (item) => {
+    return item.title.toLowerCase().includes(term.toLowerCase());
+  };
+};
 
 handleChange = (e) => {
+  console.log(e.target.name)
   this.setState({
     [e.target.name]: e.target.value
+    //e.target.name can be either firstName or lastName below!! instead of doing what we had before: lastName : e.target.value
   })
 }
 
-filterSearch(term) {
-  return(item) => {
-    return (item.name.toLowerCase().includes(term.toLowerCase()))
-  }
-}
 
   render() {
   return (
     <div className="App">
       <header className="App-header">
-      <p>Hacker News Article Search:</p>
-
-      <form onSubmit={(e) => {this.handleSubmit(e)}}>
-				<input type="text" onChange={this.handleChange}></input>
-				<select value={this.value} onChange={this.handleSelection}>
-
-					<option className="option" value="searchTerm">
-						Search by Articles
-					</option>
-
-					<option value="author">Search By Author</option>
-
-					<option value="date">Search By Date</option>
-				</select>
-
-				<input className="button" type="submit"></input>
-			</form>
-      {
-        this.state.searchForm ?
-        <ListArticlesCard articles={this.state.arrayOfArticles.filter(this.filterSearch(this.state.searchForm))}/> :
-        <ListArticlesCard articles={this.state.arrayOfArticles} />
-      }
+      <form>
+        <input
+        name="searchTerm"
+        type="text"
+        value={this.state.searchTerm}
+        onChange={(e) => {this.handleChange(e)}}
+        placeholder='search by term'
+        >
+        </input>
+      </form>
+      {this.state.searchTerm ? 
+						<ListArticles article={this.state.articleArray.filter(this.filterSearch(this.state.searchTerm))}/>
+					 : 
+						<ListArticles article={this.state.articleArray} />
+          }
     </header>
     </div>
   )
@@ -86,68 +65,3 @@ filterSearch(term) {
 }
 
 export default App;
-
-
-// import React, { Component } from 'react';
-// // import logo from './logo.svg';
-// import './App.css';
-// import axios from 'axios'
-
-
-// class App extends Component {
-// constructor(props){
-//     super(props)
-
-//     this.state={
-//       arrayOfArticles: [],
-      
-//       searchForm: "",
-//     }
-//   }
-
-// handleChange = (e) => {
-//   console.log(e.target.name)
-//   this.setState({
-//     [e.target.name]: e.target.value
-//   })
-// }
-
-// handleSubmit = (e) => {
-//   e.preventDefault()
-// axios.get('http://hn.algolia.com/api/v1/search?query=react', {
-//   searchForm: this.state.searchForm,
-
-// })
-// .then(function(response){
-//   console.log(response.data.hits)
-// })
-// .catch(function (error) {
-//   console.log(error)
-// })
-
-//   this.setState({
-
-//     searchForm: ""
-//   })
-// }
-
-//   render() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <p>Form practice React App</p>
-//         <form onSubmit={(e) => {this.handleSubmit(e)}}>
-//           <br></br>
-//           <label>Search for Article: 
-//             <input name="searchForm" type="text" value={this.state.email} onChange={(e) => {this.handleChange(e)}}></input>
-//           </label>
-//           <br></br>
-//           <input type="submit" value="Submit" />
-//         </form>
-//     </header>
-//     </div>
-//   )
-//   }
-// }
-
-// export default App;
