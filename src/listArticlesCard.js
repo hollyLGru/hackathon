@@ -1,14 +1,15 @@
 import React from 'react';
-import ArticleCard from './ArticleCard'
+import ArticleCard from './articleCard'
 
 function ListArticlesCard(props){
     return (
-        <ol>
+        <ol >
             {props.articles.map((articles, index) =>{
                 return (
                     <ArticleCard
                     key={index}
-                    name = {articles.name}
+                    index={index}
+                    title = {articles.title}
                     />
                 )
             })}

@@ -5,7 +5,7 @@ function ArticleCard(props) {
     // const [like, setLike] = useState(false);
     return (
         <li>
-            {props.name}
+            {props.title}
         </li>
     )
 }

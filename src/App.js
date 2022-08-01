@@ -16,44 +16,29 @@ constructor(props){
   }
 
 handleChange = (e) => {
-  this.setState({
-    [e.target.name]: e.target.value
+  this.setState({[e.target.name]: e.target.value
   })
 }
 
 
-// componentDidMount() {
-//   axios.get('http://hn.algolia.com/api/v1/search?query=react') 
-//     .then(res => {
-//       const arrayOfArticles = res.data;
-//       this.setState({arrayOfArticles : res.data.hits})
-//       console.log(arrayOfArticles.hits)
-//     })
-//   }
-
-handleSubmit = (e) => {
-   e.preventDefault()
- axios.get('http://hn.algolia.com/api/v1/search?query=react', {
-     searchForm: this.state.searchForm,
-   })
-   .then(function(response){
-     console.log(response.data.hits)
-     this.setState({arrayOfArticles : response.data.hits})
-   })
-   .catch(function (error) {
-     console.log(error)
-   })
-  
-     this.setState({
-      arrayOfArticles: [],
-      searchForm: ""
+componentDidMount() {
+  axios.get('http://hn.algolia.com/api/v1/search?query=react') 
+    .then(res => {
+      const arrayOfArticles = res.data.hits;
+      this.setState({arrayOfArticles})
+      console.log(arrayOfArticles)
     })
-   }
+  }
+
+// handleSubmit = (e) => {
+//    e.preventDefault()
+  
+//    }
 
   filterSearch(term) {
     return(item) => {
       return (
-        item.name.includes(term)
+        item.title.toLowerCase().includes(term.toLowerCase())
       )
     }
   }
@@ -63,21 +48,21 @@ handleSubmit = (e) => {
     <div className="App">
       <header className="App-header">
         <p>Form practice React App</p>
-        <form onSubmit={(e) => {this.handleSubmit(e)}}>
+        <form>
           <br></br>
-          <label>Search for Article: 
+          <label>  
             <input 
             name="searchForm" 
-            type="text" 
+            type="text"
             value={this.state.searchForm} 
-            onChange={(e) => {this.handleChange(e)}}></input>
+            onChange={(e) => {this.handleChange(e)}}
+            placeholder="search for Article"></input>
           </label>
-          <br></br>
-          <input type="submit" value="Submit" />
+          
         </form>
       {
         this.state.searchForm ?
-        <ListArticlesCard articles={this.state.arrayOfArticles.filter(this.filterSearch(this.state.searchForm))}/> :
+        <ListArticlesCard articles={this.state.arrayOfArticles.filter(this.filterSearch(this.state.searchForm))}></ListArticlesCard> :
         <ListArticlesCard articles={this.state.arrayOfArticles} />
       }
     </header>
