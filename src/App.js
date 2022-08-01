@@ -10,7 +10,8 @@ constructor(props){
 
     this.state={
       articleArray: [],
-      searchTerm: ""
+      searchTerm: "",
+      searchDate: ""
     }
   }
 
@@ -24,11 +25,12 @@ componentDidMount() {
     })
 }
 
-filterSearch = (term) => {
+filterSearchByAuthor = (term) => {
   return (item) => {
-    return item.title.toLowerCase().includes(term.toLowerCase());
+    return item.author.toLowerCase().includes(term.toLowerCase());
   };
 };
+
 
 handleChange = (e) => {
   console.log(e.target.name)
@@ -43,21 +45,29 @@ handleChange = (e) => {
   return (
     <div className="App">
       <header className="App-header">
-      <form>
-        <input
-        name="searchTerm"
-        type="text"
-        value={this.state.searchTerm}
-        onChange={(e) => {this.handleChange(e)}}
-        placeholder='search by term'
-        >
-        </input>
-      </form>
+        <div>
+          <img src="https://d1sz9gun5ag95e.cloudfront.net/packs/media/images/logo-hn-search-a822432b.png"></img>
+          <form>
+            <input
+            name="searchTerm"
+            type="text"
+            value={this.state.searchTerm}
+            onChange={(e) => {this.handleChange(e)}}
+            placeholder='search by author'
+            >
+            </input>
+          </form>
+      </div>
       {this.state.searchTerm ? 
-						<ListArticles article={this.state.articleArray.filter(this.filterSearch(this.state.searchTerm))}/>
-					 : 
+						<ListArticles article={this.state.articleArray.filter(this.filterSearchByAuthor(this.state.searchTerm))}/>
+					 : <h1> </h1>
+           }
 						<ListArticles article={this.state.articleArray} />
-          }
+          
+
+
+
+
     </header>
     </div>
   )

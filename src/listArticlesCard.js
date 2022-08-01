@@ -6,7 +6,7 @@ function ListArticles(props) {
     return(
     <ol>
             {props.article.map((article, index) => (
-				<ArticleCard key={index} title={article.title} author={article.author} date={article.created_at}/>
+				<ArticleCard key={index} points={article.points} title={article.title} author={article.author} date={article.created_at} url={article.url}/>
 			))}
     </ol>
     )
