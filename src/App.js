@@ -11,7 +11,7 @@ constructor(props){
     this.state={
       articleArray: [],
       searchTerm: "",
-      searchDate: ""
+      selectOptionValue: "author"
     }
   }
 
@@ -33,17 +33,22 @@ filterSearchByAuthor = (term) => {
 
 filterSearchByDate = (term) => {
   return (item) => {
-    return item.created_at.toLowerCase().includes(term.toLowerCase());
+    return item.created_at.includes(term);
   };
 };
 
-handleChange = (e) => {
+handleSearchChange = (e) => {
   console.log(e.target.name)
   this.setState({
     [e.target.name]: e.target.value
   })
 }
 
+handleOptionChange = (e) => {
+  this.setState({
+    selectOptionValue: e.target.value
+  })
+}
 
   render() {
   return (
@@ -52,7 +57,7 @@ handleChange = (e) => {
         <div>
           <img src="https://d1sz9gun5ag95e.cloudfront.net/packs/media/images/logo-hn-search-a822432b.png"></img>
           <form>
-            <select id="options">
+            <select id="options" onChange={(e) => {this.handleOptionChange(e)}}>
               <option value="author">author</option>
               <option value="date">date</option>
             </select>
@@ -61,18 +66,23 @@ handleChange = (e) => {
             name="searchTerm"
             type="text"
             value={this.state.searchTerm}
-            onChange={(e) => {this.handleChange(e)}}
-            placeholder='search by author'
+            onChange={(e) => {this.handleSearchChange(e)}}
+            placeholder='search by term'
             >
             </input>
           </form>
 
       </div>
-      {this.state.searchTerm ? 
+
+
+
+
+      {this.state.selectOptionValue == "author" ?
 						<ListArticles article={this.state.articleArray.filter(this.filterSearchByAuthor(this.state.searchTerm))}/>
-					 : <h1> </h1>
+					 : <ListArticles article={this.state.articleArray.filter(this.filterSearchByDate(this.state.searchTerm))}/>
            }
           
+        
 
 
 

@@ -11,7 +11,7 @@ const ArticleCard = (props) => {
                         {title}
                     </a> <p>{url}</p>
                 </h1> 
-				<h2>{points} points, {author},  {date}</h2>
+				<h2>{points} points, {author},  {date.slice(5,10)+"-"+date.slice(0,4)}</h2>
 
 
 		</li>
