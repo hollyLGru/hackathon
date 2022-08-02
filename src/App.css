@@ -36,7 +36,8 @@
     transform: rotate(360deg);
   }
 }
-.search{
+.App-header{
+  padding-top: 20px;
   display:flex;
   justify-items: center;
   margin-left: 100px;
@@ -47,5 +48,5 @@ border-style: solid;
 border-color:rgb(255,116,22);
 border-width: 15px;
 font-family:'Courier New', Courier, monospace;
-font-size: small;
+font-size: smaller;
 }
