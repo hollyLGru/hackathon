@@ -31,12 +31,16 @@ filterSearchByAuthor = (term) => {
   };
 };
 
+filterSearchByDate = (term) => {
+  return (item) => {
+    return item.created_at.toLowerCase().includes(term.toLowerCase());
+  };
+};
 
 handleChange = (e) => {
   console.log(e.target.name)
   this.setState({
     [e.target.name]: e.target.value
-    //e.target.name can be either firstName or lastName below!! instead of doing what we had before: lastName : e.target.value
   })
 }
 
@@ -48,6 +52,11 @@ handleChange = (e) => {
         <div>
           <img src="https://d1sz9gun5ag95e.cloudfront.net/packs/media/images/logo-hn-search-a822432b.png"></img>
           <form>
+            <select id="options">
+              <option value="author">author</option>
+              <option value="date">date</option>
+            </select>
+
             <input
             name="searchTerm"
             type="text"
@@ -57,12 +66,12 @@ handleChange = (e) => {
             >
             </input>
           </form>
+
       </div>
       {this.state.searchTerm ? 
 						<ListArticles article={this.state.articleArray.filter(this.filterSearchByAuthor(this.state.searchTerm))}/>
 					 : <h1> </h1>
            }
-						<ListArticles article={this.state.articleArray} />
           
 
 
