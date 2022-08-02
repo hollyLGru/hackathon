@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+.search{
+  display:flex;
+  justify-items: center;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top:50px;
+background-color: rgb(150, 150, 157);
+border-style: solid;
+border-color:rgb(255,116,22);
+border-width: 15px;
+font-family:'Courier New', Courier, monospace;
+font-size: small;
+}

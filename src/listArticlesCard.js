@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import ArticleCard from './ArticleCard';
+import ArticleCard from './articleCard';
 
 function ListArticles(props) {
         
